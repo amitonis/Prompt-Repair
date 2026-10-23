@@ -1,0 +1,7 @@
+{
+  "id": "D3",
+  "section": "constraints",
+  "defect": "Replace the correction rule with an over-broad null-on-two-values rule",
+  "expected_symptom": "OMITTED_SUPPORTED_VALUE",
+  "defective_section_text": "Use only information explicitly stated in the notice. Copy values verbatim from the notice; do not reformat dates or paraphrase. Return null for any field the notice does not state. Return null whenever two values appear. A registration deadline, publication date, or previous event date is not the current event date. Do not guess."
+}

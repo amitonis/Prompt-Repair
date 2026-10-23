@@ -1,0 +1,7 @@
+{
+  "id": "D6",
+  "section": "output_format",
+  "defect": "Drop one required key from the listed keys",
+  "expected_symptom": "SCHEMA_KEYS",
+  "defective_section_text": "Return exactly one JSON object and no other text. The object must contain exactly the keys event and date, all present. event is a nonempty string. date is either a nonempty string or JSON null. Do not add extra keys, Markdown fences, explanations, or any text outside the JSON object."
+}

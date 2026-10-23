@@ -1,0 +1,5 @@
+pytest
+marimo
+torch
+transformers
+accelerate

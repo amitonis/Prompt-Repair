@@ -1,0 +1,7 @@
+{
+  "id": "D5",
+  "section": "output_format",
+  "defect": "Weaken 'exactly one JSON object and no other text' to 'return JSON'",
+  "expected_symptom": "MALFORMED_JSON",
+  "defective_section_text": "Return JSON. The object must contain exactly the keys event, date, and venue, all present. event is a nonempty string. date and venue are each either a nonempty string or JSON null. Do not add extra keys, Markdown fences, explanations, or any text outside the JSON object."
+}

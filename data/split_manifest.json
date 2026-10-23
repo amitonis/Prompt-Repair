@@ -1,0 +1,14 @@
+{
+  "status": "planned",
+  "note": "Notices are written and labelled on Day 3. Families must not cross splits. This manifest records the planned allocation from Section 6.1 of the methodology guide.",
+  "planned_counts": {
+    "complete_unambiguous": {"feedback": 2, "selection": 2, "test": 8},
+    "venue_absent_or_pending": {"feedback": 2, "selection": 2, "test": 8},
+    "date_absent": {"feedback": 2, "selection": 1, "test": 6},
+    "deadline_distractor": {"feedback": 2, "selection": 1, "test": 6},
+    "explicit_correction": {"feedback": 2, "selection": 1, "test": 6},
+    "unresolved_conflict": {"feedback": 2, "selection": 1, "test": 6}
+  },
+  "dataset_sha256": null,
+  "records": []
+}

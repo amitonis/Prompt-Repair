@@ -1,0 +1,48 @@
+{
+  "study": {
+    "name": "PromptRepair pilot",
+    "version": "frozen-spec-v1",
+    "max_editing_attempts": 2,
+    "max_new_text_words": 60,
+    "max_prompt_words": 240,
+    "screening_margin_points": 15,
+    "fixability_threshold": 0.8,
+    "localizer_tie_break_order": ["output_format", "constraints", "instruction", "context"],
+    "seed": 20261014
+  },
+  "environment": {
+    "gpu_name": "NVIDIA RTX PRO 6000 Blackwell",
+    "gpu_vram_gb": 95.6,
+    "driver_version": "580.178.04",
+    "cuda_version": "13.0",
+    "serving_library": null,
+    "serving_library_version": null,
+    "os": null
+  },
+  "models": {
+    "extractor": {
+      "hf_model_id": "TO_FILL_ON_DAY_1",
+      "revision": null,
+      "quantization": null
+    },
+    "editor": {
+      "hf_model_id": "TO_FILL_ON_DAY_1",
+      "revision": null,
+      "quantization": null,
+      "same_as_extractor": true
+    }
+  },
+  "generation": {
+    "temperature": 0,
+    "max_new_tokens": null,
+    "decoding": "greedy",
+    "sampled_repeats_S": 1,
+    "note": "greedy for the primary comparison; fixed seeds for sampled arms"
+  },
+  "splits": {
+    "feedback": 12,
+    "selection": 8,
+    "test_handwritten": 40,
+    "test_generated_target": 300
+  }
+}

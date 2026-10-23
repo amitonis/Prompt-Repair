@@ -1,0 +1,20 @@
+{
+  "type": "object",
+  "properties": {
+    "event": {"type": "string", "minLength": 1},
+    "date": {
+      "anyOf": [
+        {"type": "string", "minLength": 1},
+        {"type": "null"}
+      ]
+    },
+    "venue": {
+      "anyOf": [
+        {"type": "string", "minLength": 1},
+        {"type": "null"}
+      ]
+    }
+  },
+  "required": ["event", "date", "venue"],
+  "additionalProperties": false
+}

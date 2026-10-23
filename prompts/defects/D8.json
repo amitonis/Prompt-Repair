@@ -1,0 +1,7 @@
+{
+  "id": "D8",
+  "section": "context",
+  "defect": "State wrongly that a notice may contain several events",
+  "expected_symptom": "MIXED",
+  "defective_section_text": "A notice may describe several college events and other announcements; identify the most relevant content to report."
+}

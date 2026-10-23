@@ -1,0 +1,7 @@
+{
+  "id": "D4",
+  "section": "constraints",
+  "defect": "Add a conflicting directive: always provide a value for every field",
+  "expected_symptom": "NULL_POLICY_VIOLATION",
+  "defective_section_text": "Use only information explicitly stated in the notice. Copy values verbatim from the notice; do not reformat dates or paraphrase. Return null for any field the notice does not state. Return null when two conflicting values appear and the notice does not resolve the conflict. An explicit correction such as rescheduled from X to Y selects the corrected value Y. A registration deadline, publication date, or previous event date is not the current event date. Do not guess. Always provide a value for every field."
+}

@@ -1,0 +1,7 @@
+{
+  "id": "D7",
+  "section": "instruction",
+  "defect": "Replace the extraction instruction with a vague one",
+  "expected_symptom": "MIXED",
+  "defective_section_text": "Summarize the supplied notice."
+}

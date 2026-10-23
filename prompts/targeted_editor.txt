@@ -1,0 +1,32 @@
+You are editing a reusable prompt for a fixed information-extraction task.
+
+Your job is to propose ONE local edit based on observed development errors.
+Do not answer the notices yourself. Do not rewrite the entire prompt.
+
+TASK CONTRACT:
+{{TASK_CONTRACT}}
+
+CURRENT PROMPT SECTIONS:
+{{PROMPT_SECTIONS_JSON}}
+
+DEVELOPMENT FEEDBACK:
+{{FEEDBACK_JSON}}
+
+EDIT RULES:
+- Choose only constraints or output_format.
+- Replace one contiguous, nonempty span occurring exactly once in that section.
+- Leave every other section unchanged.
+- Use no more than 60 whitespace-separated words in new_text.
+- The complete resulting prompt must remain within 240 whitespace-separated words,
+  excluding the notice and section labels.
+- Correct the intended task; do not introduce a new task or new output fields.
+- Generalize the rule. Do not insert event names, dates, venues, case IDs,
+  or complete answers from the development examples.
+- Provide a short evidence-based explanation, not a claim of proven causation.
+- If no justified edit exists, return action = no_change.
+
+Return one JSON object with these keys:
+action, component, old_text, new_text, error_codes, explanation.
+
+For action = replace, component must be constraints or output_format.
+For action = no_change, use null for component, old_text, and new_text.

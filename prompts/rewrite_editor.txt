@@ -1,0 +1,28 @@
+You are rewriting a reusable prompt for a fixed information-extraction task.
+
+Rewrite the prompt using the task contract and observed development errors.
+You may revise instruction, context, constraints, and output_format.
+
+TASK CONTRACT:
+{{TASK_CONTRACT}}
+
+CURRENT PROMPT SECTIONS:
+{{PROMPT_SECTIONS_JSON}}
+
+DEVELOPMENT FEEDBACK:
+{{FEEDBACK_JSON}}
+
+RULES:
+- Preserve the task contract and exactly the same three extraction fields.
+- Keep the four named sections and the unchanged runtime notice mechanism.
+- Generalize from errors; do not insert case-specific answers or case IDs.
+- The complete prompt must stay within 240 whitespace-separated words,
+  excluding the notice and section labels.
+- Explain the intended changes briefly.
+- Do not claim that the rewrite improves performance before testing it.
+
+Return one JSON object with keys:
+action, sections, explanation.
+
+Use action = rewrite and include the four section strings in sections.
+Use action = no_change and sections = null when no change is justified.

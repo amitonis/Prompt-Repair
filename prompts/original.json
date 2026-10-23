@@ -1,0 +1,11 @@
+{
+  "name": "original_naturalistic",
+  "description": "Naturalistic vague starting prompt (Section 8.2). Baseline; freeze exactly as written.",
+  "sections": {
+    "instruction": "Extract details about the target college event from the supplied notice.",
+    "context": "The notice describes one clearly named target college event.",
+    "constraints": "Keep the result concise and use the notice.",
+    "output_format": "Return JSON with the keys event, date, and venue."
+  },
+  "runtime_input": "{{NOTICE}}"
+}
