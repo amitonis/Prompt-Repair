@@ -1,0 +1,24 @@
+{
+  "source": "allenai/natural-instructions",
+  "task_list": "official default training task list only",
+  "examples": 4800,
+  "tasks": 60,
+  "counts_by_split": {
+    "train": 3360,
+    "validation": 720,
+    "held_out": 720
+  },
+  "counts_by_family": {
+    "other_instruction_task": 1120,
+    "question_answering": 2000,
+    "text_generation_rewriting": 240,
+    "information_extraction": 880,
+    "classification": 560
+  },
+  "task_disjoint_splits": true,
+  "official_source_test_used": false,
+  "licenses": ["CC BY 4.0", "MIT", "Apache 2.0"],
+  "sha256_in_molab": "29b2a715b492793df73ea81410e0ad40f9992d2c3edef4265590952cf6549e32",
+  "path_in_molab": "data/prompt_repair_multitask/superni_source_examples_v2.jsonl",
+  "note": "Task examples only; not prompt-repair training pairs. Family mapping is heuristic and question answering is the largest group."
+}

@@ -354,7 +354,12 @@ def run_repair(
             score=score,
             task_contract=CONTRACT_PATH.read_text(encoding="utf-8"),
             feedback_packet=feedback_packet,
-            target_sections=(localizer_ranking[0],),
+            # A single top-ranked section can reflect a symptom (for example,
+            # malformed output) while the underlying defect is elsewhere.
+            # Score the two highest-ranked sections on selection data; the
+            # existing acceptance rule still decides whether either change
+            # is safe to keep.
+            target_sections=tuple(localizer_ranking[:2]),
             max_attempts=max_attempts,
         )
         repair_results["targeted"] = _candidate_details(targeted, sections)

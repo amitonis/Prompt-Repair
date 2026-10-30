@@ -286,6 +286,7 @@ def run_targeted_branch(
     last_valid: dict[str, dict[str, Any]] = {}
     last_entries: dict[str, dict[str, Any]] = {}
     best_by_section: dict[str, dict[str, Any]] = {}
+    retry_notes: dict[str, str] = {}
     stopped = "attempts_exhausted"
     accepted_any = False
 
@@ -300,6 +301,13 @@ def run_targeted_branch(
                 feedback_packet=feedback_packet,
                 section=name,
             )
+            if name in retry_notes:
+                prompt += (
+                    "\n\nRETRY FEEDBACK FROM THE VALIDATOR:\n"
+                    f"Your previous proposal for {name!r} was rejected: "
+                    f"{retry_notes[name]} Make a materially corrected proposal. "
+                    "For NEW_TEXT_TOO_LONG, keep new_text at or below 60 words."
+                )
             raw = ask(prompt)
             entry: dict[str, Any] = {"raw": raw, "valid": False}
             try:
@@ -319,6 +327,7 @@ def run_targeted_branch(
                     entry["reason"] = "NO_CHANGE"
                 elif not result["ok"]:
                     entry["reason"] = result["reason"]
+                    retry_notes[name] = result["reason"]
                 else:
                     entry.update({"valid": True, "sections": result["sections"]})
                     last_valid[name] = entry
@@ -330,6 +339,11 @@ def run_targeted_branch(
             metrics = score(entry["sections"])
             entry["metrics"] = metrics
             entry["accepted"] = should_accept(current_metrics, metrics)
+            if not entry["accepted"]:
+                retry_notes[name] = (
+                    "the candidate did not improve selection exact-record accuracy "
+                    "without increasing invalid outputs"
+                )
             if entry["accepted"]:
                 accepted_any = True
                 incumbent = best_by_section.get(name)

@@ -1,0 +1,24 @@
+{
+  "source": "Super-NaturalInstructions official training task list",
+  "source_url": "https://raw.githubusercontent.com/allenai/natural-instructions/master/splits/default/train_tasks.txt",
+  "training_task_count": 756,
+  "task_ids_file": "superni_train_task_ids.txt",
+  "task_ids_sha256": "7ba69b22c1d6096f9747290782e5e0f358728407b065c4bd561fdf4f6239db1c",
+  "sample_task_ids": [
+    "task547_alt_translation_entk_en",
+    "task706_mmmlu_answer_generation_high_school_mathematics",
+    "task1565_triviaqa_classification",
+    "task701_mmmlu_answer_generation_high_school_computer_science",
+    "task698_mmmlu_answer_generation_global_facts",
+    "task104_semeval_2019_task10_closed_vocabulary_mathematical_answer_generation",
+    "task926_coached_conv_pref_word_generation",
+    "task326_jigsaw_classification_obscene",
+    "task1498_24hour_to_12hour_clock",
+    "task1731_quartz_question_answering",
+    "task1453_person_entity_extraction_btc_corpus",
+    "task1399_obqa_answer_generation"
+  ],
+  "task_examples_downloaded": false,
+  "official_test_list_read": false,
+  "status": "training_task_index_only; inspect task-specific instance licenses before sampling"
+}

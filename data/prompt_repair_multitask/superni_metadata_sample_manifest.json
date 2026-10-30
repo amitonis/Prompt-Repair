@@ -1,0 +1,28 @@
+{
+  "source": "Super-NaturalInstructions official training task files",
+  "sample_seed": 20261030,
+  "sampled_tasks": 40,
+  "successfully_inspected": 40,
+  "errors": 0,
+  "metadata_sha256_in_molab": "b6a2017975eb980234a1a6201819b93ede5023fff5500ac8bd6746ac3371afb2",
+  "metadata_path_in_molab": "data/prompt_repair_multitask/superni_metadata_sample.json",
+  "license_counts": {
+    "Unknown": 23,
+    "CC BY 4.0": 5,
+    "MIT": 4,
+    "GPL 3.0": 1,
+    "Apache 2.0": 1,
+    "CC BY-SA 4.0": 3,
+    "Dedicated License (DREAM)": 1,
+    "Dedicated Statement (AG corpus)": 1,
+    "CC BY-SA 3.0": 1
+  },
+  "pilot_license_filter": [
+    "CC BY 4.0",
+    "MIT",
+    "Apache 2.0"
+  ],
+  "task_examples_saved_locally": false,
+  "official_test_list_read": false,
+  "note": "Candidate filter only. Verify source attribution and each task's license terms before redistributing any sampled instances."
+}

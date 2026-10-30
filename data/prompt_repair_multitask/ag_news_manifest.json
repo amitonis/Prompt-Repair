@@ -1,0 +1,15 @@
+{
+  "dataset": "fancyzhx/ag_news",
+  "task_family": "classification",
+  "source_url": "https://huggingface.co/datasets/fancyzhx/ag_news",
+  "source_train_split_requested": true,
+  "source_test_split_prepared_by_hf_cache": true,
+  "source_test_examples_sampled_or_scored": false,
+  "sampled_examples": 2000,
+  "examples_per_label": {"World": 500, "Sports": 500, "Business": 500, "Sci/Tech": 500},
+  "custom_split_counts_per_label": {"train": 350, "validation": 75, "held_out": 75},
+  "random_seed": 20261030,
+  "local_molab_path": "/marimo/promptrepair_broad_runtime/data/prompt_repair_multitask/source_examples/ag_news_source_examples.jsonl",
+  "sha256": "b161b5ef26d9338625efc502b324bdb32daae1caff8472b55efededb04e4c576",
+  "license_note": "Dataset source states research/non-commercial use. Keep use non-commercial and do not redistribute the raw sample in the Molab bundle."
+}

@@ -1,0 +1,94 @@
+{
+  "status": "pilot_partially_downloaded_raw_samples_remain_in_molab",
+  "initial_pilot": [
+    {
+      "task_family": "classification",
+      "dataset": "AG News",
+      "source": "https://www.tensorflow.org/datasets/catalog/ag_news_subset",
+      "metric": [
+        "accuracy",
+        "macro_f1"
+      ],
+      "license_note": "Research/non-commercial use is stated by the dataset source; confirm project use remains non-commercial."
+    },
+    {
+      "task_family": "question_answering",
+      "dataset": "SQuAD 2.0",
+      "dataset_id": "rajpurkar/squad_v2",
+      "source": "https://huggingface.co/datasets/rajpurkar/squad_v2",
+      "metric": [
+        "exact_match",
+        "token_f1"
+      ],
+      "license": "CC BY-SA 4.0"
+    },
+    {
+      "task_family": "information_extraction",
+      "dataset": "Small synthetic records created for this project",
+      "source": "generated in project",
+      "metric": [
+        "field_accuracy",
+        "record_exact_match"
+      ],
+      "license_note": "Project-generated examples; document the generation rules and keep examples out of the frozen notice study."
+    },
+    {
+      "task_family": "structured_output",
+      "dataset": "Small synthetic JSON-schema tasks created for this project",
+      "source": "generated in project",
+      "metric": [
+        "json_validity",
+        "schema_compliance",
+        "field_accuracy"
+      ],
+      "license_note": "Project-generated schemas and examples; validate outputs with a JSON Schema validator."
+    }
+  ],
+  "deferred_sources": [
+    {
+      "dataset": "CoNLL-2003",
+      "reason": "The data card says the Reuters text requires separate access and agreements.",
+      "source": "https://huggingface.co/datasets/eriktks/conll2003"
+    },
+    {
+      "dataset": "XSum",
+      "reason": "The dataset card currently lists the license as unknown.",
+      "source": "https://huggingface.co/datasets/EdinburghNLP/xsum"
+    },
+    {
+      "dataset": "ASSET",
+      "reason": "The card has conflicting license metadata; resolve before use.",
+      "source": "https://huggingface.co/datasets/facebook/asset"
+    }
+  ],
+  "split_policy": {
+    "training_and_validation": "Use only the selected source datasets' training portions for repair-example creation and prompt selection.",
+    "final_evaluation": "Keep a separate held-out split that is never used to generate repairs or select checkpoints.",
+    "frozen_notice_study": "Do not read or use its frozen test labels as training data."
+  },
+  "downloaded_source_samples": [
+    {
+      "task_family": "classification",
+      "dataset": "fancyzhx/ag_news",
+      "requested_source_split": "train",
+      "samples": 2000,
+      "sha256": "b161b5ef26d9338625efc502b324bdb32daae1caff8472b55efededb04e4c576",
+      "molab_path": "/marimo/promptrepair_broad_runtime/data/prompt_repair_multitask/source_examples/ag_news_source_examples.jsonl",
+      "test_examples_used": false
+    },
+    {
+      "task_family": "question_answering",
+      "dataset": "rajpurkar/squad_v2",
+      "requested_source_split": "train",
+      "samples": 1000,
+      "sha256": "adac1496d81b8418863330e03bc422179aef4ddc513de982e900f3b868fd832e",
+      "molab_path": "/marimo/promptrepair_broad_runtime/data/prompt_repair_multitask/source_examples/squad2_source_examples.jsonl",
+      "custom_splits_by_article_title": {
+        "train": 700,
+        "validation": 150,
+        "held_out": 150
+      }
+    }
+  ],
+  "note": "Hugging Face may prepare official split files in its local cache while loading train; only requested train rows were sampled into project files. Raw examples are not included in the restart ZIP."
+}

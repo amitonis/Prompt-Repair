@@ -1,0 +1,45 @@
+{
+  "status": "pilot_v1_findings_only_split_superseded_by_v3",
+  "source_examples_sha256": "29b2a715b492793df73ea81410e0ad40f9992d2c3edef4265590952cf6549e32",
+  "defect_types": [
+    "constant_output_override",
+    "copy_input_override",
+    "wrong_json_format_override",
+    "one_word_override"
+  ],
+  "case_files": {
+    "train": {
+      "path_in_molab": "data/prompt_repair_multitask/repair_candidate_cases_train_v1.jsonl",
+      "cases": 168,
+      "tasks": 42,
+      "sha256": "7819353b6c66ae4a9f2c5d13ee874353d90257af77c9dc524e6ad891cc8b1d4d"
+    },
+    "validation": {
+      "path_in_molab": "data/prompt_repair_multitask/repair_candidate_cases_validation_v1.jsonl",
+      "cases": 36,
+      "tasks": 9,
+      "sha256": "316280432a621646eabd239acdeee9ada92dc3ac3f7f8183235c4c9190973207"
+    },
+    "held_out": {
+      "path_in_molab": "data/prompt_repair_multitask/repair_candidate_cases_held_out_v1.jsonl",
+      "cases": 36,
+      "tasks": 9,
+      "sha256": "5d5a77eaf7799d5b2a236f646cca09fbc2e618a46bb8d78a4499f206847152aa"
+    }
+  },
+  "examples_per_case": {
+    "feedback": 4,
+    "selection": 8
+  },
+  "validation_findings_manifest": "repair_candidate_validation_manifest.json",
+  "training_screen_manifest": "repair_candidate_training_screen_manifest.json",
+  "validated_defect_types": [
+    "constant_output_override",
+    "copy_input_override",
+    "wrong_json_format_override"
+  ],
+  "excluded_defect_types": ["one_word_override"],
+  "validated_training_cases": 126,
+  "held_out_usage": "These v1 split cases are pilot artifacts and must not be mixed with the new v3 task split.",
+  "note": "The three defects degraded performance on the small v1 train/validation sample. Re-screen on the v3 validation tasks before finalizing repair data."
+}

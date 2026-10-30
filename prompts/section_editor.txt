@@ -21,6 +21,11 @@ RULES:
 - Keep the runtime notice mechanism unchanged.
 - The complete prompt must stay within 240 whitespace-separated words,
   excluding the notice and section labels.
+- Keep new_text to at most 60 whitespace-separated words; prefer 40 or fewer.
+- Make the smallest justified change. Do not restate rules already present in
+  other sections or reproduce the full task contract.
+- If the target section conflicts with the task contract, correct that rule;
+  do not preserve the conflicting instruction.
 - Generalize from errors; do not insert case-specific answers, case IDs,
   dates, venues, or event names.
 - If no justified edit exists, return action = no_change.

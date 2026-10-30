@@ -402,10 +402,45 @@ entry point `scripts/repair_prompt.py`. It accepts sectioned JSON or plain-text
 instructions, uses only the fixed feedback and selection development sets,
 compares a rule-localized section patch with a full rewrite, and saves before/
 after prompts, diffs, rejected candidates, and reports. Three demo prompt files
-are under `examples/reviewer_prompts/`. CLI `--help` works locally; no model
-demo has run yet. Next: upload the refreshed bundle to Molab and run the three
-demos on the development data only, then save their summaries here. Tier B
+are under `examples/reviewer_prompts/`. CLI `--help` works locally. Tier B
 arbitrary-task evaluation remains unimplemented.
+
+All three Tier A demos have now run in Molab on feedback/selection development
+data. `runs/reviewer_prompt_demo_summary.json` and
+`runs/REVIEWER_PROMPT_DEMO_REPORT.md` record the pasted summaries. Selection
+counts were 0/10 before each repair; targeted/rewrite results were 7/10 and
+5/10 for the vague prompt, 8/10 and 10/10 for the missing venue key, and 0/10
+(rejected, no change) and 9/10 for the wrong conflict rule. These are demos,
+not general performance claims. The targeted rejection trace for the third
+demo trace was inspected. L-Rule ranked `output_format` first and `constraints`
+second. The format patch was valid but left all 10 selection outputs malformed,
+so the selection acceptance rule rejected it. The targeted branch previously
+proposed only the top-ranked section; it now scores both highest-ranked sections
+and lets the unchanged acceptance rule choose an edit. The constraints rewrite
+exceeded the 60-word edit cap. V3 repeated the same 79-word replacement on both
+attempts. V4 added validator feedback to attempt 2, but the editor still repeated
+the same proposal; targeted mode remained rejected with no score change. The
+earlier `both` run's full rewrite succeeded at 9/10 selection records. Results
+are archived in `runs/reviewer_prompt_retry_v3_summary.json` and
+`runs/reviewer_prompt_retry_v4_summary.json`. A final Molab `both` run reproduced
+the same result: targeted rejected at 0/10; rewrite accepted at 9/10 with 10/10
+valid JSON and schema. Summary: `runs/reviewer_prompt_molab_final_summary.json`.
+Stop repeating this targeted demo; use the failure as a documented limitation
+while finishing Tier A packaging.
+
+## Broader project direction
+
+The user wants to move beyond the fixed notice task and asked about one 8–10-hour
+training run. `RESEARCH_BROADER_PROMPT_REPAIR_8H.md` reviews prompt optimization,
+QLoRA, broad task datasets, and proposes a staged run. Recommendation: first
+build cross-task repair records and a task-metric interface, then use a fixed
+model for a budgeted multi-task optimization study. Train a QLoRA adapter only
+after repair examples and task-family held-out splits are ready. The Molab GPU
+previously reported 94.97 GiB total memory, but throughput and availability
+must be checked at the next run. A fresh standalone bootstrap notebook,
+`molab_broad_repair_runner.py`, now uploads and hash-verifies the ZIP in a
+separate runtime directory and reports GPU, training-package, and dataset
+readiness. It does not load weights or train.
 
 ## Constraints and decisions
 

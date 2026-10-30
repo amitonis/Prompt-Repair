@@ -1,0 +1,40 @@
+{
+  "artifact": "repair_candidate_training_screen_v1.json",
+  "input_file_sha256": "7819353b6c66ae4a9f2c5d13ee874353d90257af77c9dc524e6ad891cc8b1d4d",
+  "model_id": "Qwen/Qwen2.5-14B-Instruct",
+  "model_revision": "cf98f3b3bbb457ad9e2bb7baf9a0125b6b88caa8",
+  "training_tasks": 42,
+  "screened_cases": 126,
+  "clean_prompt_metrics": {
+    "exact_match": 0.49107142857142855,
+    "mean_token_f1": 0.5720799583270345
+  },
+  "defect_findings": {
+    "constant_output_override": {
+      "corrupted_exact_match": 0.0,
+      "corrupted_mean_token_f1": 0.0005411255411255411,
+      "mean_exact_match_change_vs_clean": -0.49107142857142855,
+      "tasks_worse": 31,
+      "tasks_equal": 11,
+      "tasks_better": 0
+    },
+    "copy_input_override": {
+      "corrupted_exact_match": 0.05952380952380952,
+      "corrupted_mean_token_f1": 0.13033524227187548,
+      "mean_exact_match_change_vs_clean": -0.43154761904761907,
+      "tasks_worse": 30,
+      "tasks_equal": 12,
+      "tasks_better": 0
+    },
+    "wrong_json_format_override": {
+      "corrupted_exact_match": 0.0,
+      "corrupted_mean_token_f1": 0.41773843124800825,
+      "mean_exact_match_change_vs_clean": -0.49107142857142855,
+      "tasks_worse": 31,
+      "tasks_equal": 11,
+      "tasks_better": 0
+    }
+  },
+  "result_path_in_molab": "data/prompt_repair_multitask/repair_candidate_training_screen_v1.json",
+  "note": "Training-split screen only. It confirms these injected defects harm the base model on this sample; it does not measure prompt repair or generalization."
+}

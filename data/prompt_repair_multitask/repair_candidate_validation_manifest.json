@@ -1,0 +1,54 @@
+{
+  "artifact": "repair_candidate_validation_v1.json",
+  "candidate_file_sha256": "316280432a621646eabd239acdeee9ada92dc3ac3f7f8183235c4c9190973207",
+  "model_id": "Qwen/Qwen2.5-14B-Instruct",
+  "model_revision": "cf98f3b3bbb457ad9e2bb7baf9a0125b6b88caa8",
+  "validation_tasks": 9,
+  "cases": 36,
+  "prediction_records": 360,
+  "clean_prompt_metrics": {
+    "n": 72,
+    "exact_match": 0.4166666666666667,
+    "mean_token_f1": 0.48418532169703155
+  },
+  "defect_findings": {
+    "constant_output_override": {
+      "corrupted_exact_match": 0.0,
+      "corrupted_mean_token_f1": 0.0,
+      "mean_exact_match_change_vs_clean": -0.4166666666666667,
+      "tasks_worse": 7,
+      "tasks_equal": 2,
+      "tasks_better": 0,
+      "status": "supported_as_degrading_candidate"
+    },
+    "copy_input_override": {
+      "corrupted_exact_match": 0.0,
+      "corrupted_mean_token_f1": 0.03778412988960111,
+      "mean_exact_match_change_vs_clean": -0.4166666666666667,
+      "tasks_worse": 7,
+      "tasks_equal": 2,
+      "tasks_better": 0,
+      "status": "supported_as_degrading_candidate"
+    },
+    "wrong_json_format_override": {
+      "corrupted_exact_match": 0.0,
+      "corrupted_mean_token_f1": 0.38003907379765306,
+      "mean_exact_match_change_vs_clean": -0.4166666666666667,
+      "tasks_worse": 7,
+      "tasks_equal": 2,
+      "tasks_better": 0,
+      "status": "supported_as_degrading_candidate"
+    },
+    "one_word_override": {
+      "corrupted_exact_match": 0.5416666666666666,
+      "corrupted_mean_token_f1": 0.5481102313583299,
+      "mean_exact_match_change_vs_clean": 0.125,
+      "tasks_worse": 1,
+      "tasks_equal": 5,
+      "tasks_better": 3,
+      "status": "exclude_from_validated_defects_under_current_metrics"
+    }
+  },
+  "validation_result_path_in_molab": "data/prompt_repair_multitask/repair_candidate_validation_v1.json",
+  "note": "Small task-disjoint validation sample; exact match and token F1 are imperfect for free-form outputs. Held-out tasks remain unused."
+}

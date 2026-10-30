@@ -1,0 +1,24 @@
+{
+  "artifact": "superni_source_examples_v2.jsonl",
+  "sha256": "29b2a715b492793df73ea81410e0ad40f9992d2c3edef4265590952cf6549e32",
+  "physical_jsonl_records": 4800,
+  "parsed_records": 4800,
+  "parse_errors": 0,
+  "duplicate_id_count": 0,
+  "task_count": 60,
+  "tasks_in_multiple_splits": 0,
+  "counts_by_split": {
+    "train": 3360,
+    "validation": 720,
+    "held_out": 720
+  },
+  "license_counts": {
+    "CC BY 4.0": 1280,
+    "MIT": 2880,
+    "Apache 2.0": 640
+  },
+  "invalid_expected_outputs_count": 0,
+  "missing_source_attribution_count": 0,
+  "audit_path_in_molab": "data/prompt_repair_multitask/superni_source_examples_v2_audit_v2.json",
+  "note": "The first audit used str.splitlines(), which incorrectly treated Unicode separators inside records as line boundaries. Re-audit using LF splitting passed. This checks structure and split integrity, not answer correctness."
+}

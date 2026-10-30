@@ -133,7 +133,9 @@ GPU available):
 python scripts/repair_prompt.py examples/reviewer_prompts/demo_missing_venue_key.json --mode both --run-id demo-missing-venue
 ```
 
-Modes are `targeted`, `rewrite`, and `both`. The output directory contains the
+Modes are `targeted`, `rewrite`, and `both`. Targeted mode proposes edits to the
+two highest-ranked prompt sections and accepts a change only if selection
+accuracy improves without increasing invalid outputs. The output directory contains the
 before/after prompt JSON, unified diff, rejected-candidate details, generation
 cache, and Markdown/JSON report. In `both` mode the targeted patch and full
 rewrite are shown side by side; this is descriptive and does not imply the
@@ -142,6 +144,11 @@ patch is better.
 ### One-cell Molab call
 
 Upload and extract the current Molab bundle first. Then call the tool directly:
+
+For the broader cross-task work, use the separate
+`molab_broad_repair_runner.py`. It uploads and hash-verifies the project ZIP in
+its own runtime folder and reports whether training packages, GPU memory, and
+multi-task repair data are ready. It does not start training.
 
 ```python
 from pathlib import Path as ReviewerRepairPath
@@ -161,6 +168,19 @@ print("Report:", reviewer_repair_output / "report.md")
 ```
 
 Tier B (arbitrary tasks scored with a reviewer's own input/output examples and
-metric) is not implemented yet. Do not use the frozen 40-case test to repair or
+metric) is not implemented yet. The broader multi-task and 8–10-hour adapter
+research plan is in `RESEARCH_BROAD_PROMPT_REPAIR_8H.md`. Do not use the frozen 40-case test to repair or
 score reviewer prompts. The Tier A CLI implementation is a prototype and
-remains development-only until its Molab demo runs are saved.
+remains development-only. Three Molab demonstrations completed on the
+feedback/selection development sets; their compact results are in
+`runs/reviewer_prompt_demo_summary.json` and `runs/REVIEWER_PROMPT_DEMO_REPORT.md`.
+For the wrong-conflict demo, `both` mode's full rewrite was accepted at 9/10
+selection records; targeted mode was rejected at 0/10. A follow-up targeted
+retry also failed: the editor repeated a 79-word constraints proposal despite
+validator feedback, so the existing 60-word guard rejected it. See
+`runs/reviewer_prompt_retry_v3_summary.json` and
+`runs/reviewer_prompt_retry_v4_summary.json`. A final `both` run reproduced the
+same result: targeted was rejected at 0/10, while rewrite was accepted at 9/10
+with 10/10 valid JSON and schema. Its summary is in
+`runs/reviewer_prompt_molab_final_summary.json`. This is a documented
+limitation and demo result, not evidence that localized repairs always succeed.

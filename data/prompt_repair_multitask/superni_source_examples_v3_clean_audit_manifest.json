@@ -1,0 +1,32 @@
+{
+  "artifact": "superni_source_examples_v3_clean.jsonl",
+  "sha256": "e5b86a6b1c3f9cf4789871086673c935bec5c9f5ed95e847ad10a05d39974def",
+  "physical_jsonl_records": 22161,
+  "parsed_records": 22161,
+  "parse_errors": 0,
+  "duplicate_id_count": 0,
+  "tasks": 278,
+  "tasks_in_multiple_splits": 0,
+  "counts_by_split": {
+    "train": 15452,
+    "validation": 3269,
+    "held_out": 3440
+  },
+  "counts_by_family": {
+    "question_answering": 7823,
+    "information_extraction": 3589,
+    "classification": 3840,
+    "other_instruction_task": 5789,
+    "text_generation_rewriting": 1120
+  },
+  "license_counts": {
+    "CC BY 4.0": 7829,
+    "Apache 2.0": 3932,
+    "MIT": 10400
+  },
+  "rows_with_non_allowlisted_license": 0,
+  "invalid_expected_outputs_count": 0,
+  "missing_source_attribution_count": 0,
+  "official_source_test_used": false,
+  "note": "Structural integrity and metadata checks passed; this does not verify answer correctness or semantic quality."
+}

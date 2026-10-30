@@ -1,0 +1,27 @@
+{
+  "source_examples_sha256": "e5b86a6b1c3f9cf4789871086673c935bec5c9f5ed95e847ad10a05d39974def",
+  "status": "fresh_v3_candidates_pending_validation_screen",
+  "defect_types": [
+    "constant_output_override",
+    "copy_input_override",
+    "wrong_json_format_override"
+  ],
+  "train": {
+    "path_in_molab": "data/prompt_repair_multitask/repair_candidate_cases_v3_train.jsonl",
+    "cases": 582,
+    "tasks": 194,
+    "sha256": "618a786c5ae1089dc315c3b8b696c031e6a91270fe7346c29d315d2d6d6b940d"
+  },
+  "validation": {
+    "path_in_molab": "data/prompt_repair_multitask/repair_candidate_cases_v3_validation.jsonl",
+    "cases": 123,
+    "tasks": 41,
+    "sha256": "9332d26a7e5fe9c58171f0b256f6556c9aa48c179bde9355f4a2aff945ef7c3b"
+  },
+  "examples_per_case": {
+    "feedback": 4,
+    "selection": 8
+  },
+  "held_out_cases_created": false,
+  "note": "Synthetic prompt defects; not accepted as training data until the v3 validation screen confirms they degrade task performance."
+}

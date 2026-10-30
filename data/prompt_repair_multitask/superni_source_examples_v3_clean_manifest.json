@@ -1,0 +1,20 @@
+{
+  "source": "allenai/natural-instructions",
+  "original_file": "superni_source_examples_v3.jsonl",
+  "original_sha256": "d095f2d0d9401566eed128309e25bafb08c6a3c13d73d26c39c653717584e5e0",
+  "cleaned_file_in_molab": "data/prompt_repair_multitask/superni_source_examples_v3_clean.jsonl",
+  "cleaned_sha256": "e5b86a6b1c3f9cf4789871086673c935bec5c9f5ed95e847ad10a05d39974def",
+  "rows_before": 22178,
+  "rows_after": 22161,
+  "rows_dropped_without_usable_reference": 17,
+  "rows_with_blank_references_fixed": 0,
+  "tasks": 278,
+  "counts_by_split": {
+    "train": 15452,
+    "validation": 3269,
+    "held_out": 3440
+  },
+  "tasks_in_multiple_splits": 0,
+  "structural_audit": "pending",
+  "note": "Original file preserved. The 17 rows had no usable expected output; all were in train."
+}

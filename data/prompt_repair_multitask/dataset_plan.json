@@ -1,0 +1,81 @@
+{
+  "status": "expanded_source_examples_cleaned_and_audited_v3_fresh_repair_candidates_pending_validation_screen",
+  "purpose": "Prepare prompt-repair examples across multiple task families.",
+  "task_families": [
+    {
+      "id": "classification",
+      "scoring": [
+        "accuracy",
+        "macro_f1"
+      ]
+    },
+    {
+      "id": "information_extraction",
+      "scoring": [
+        "span_or_field_f1",
+        "exact_match"
+      ]
+    },
+    {
+      "id": "structured_output",
+      "scoring": [
+        "schema_validity",
+        "field_accuracy"
+      ]
+    },
+    {
+      "id": "question_answering",
+      "scoring": [
+        "exact_match",
+        "token_f1"
+      ]
+    },
+    {
+      "id": "summarization",
+      "scoring": [
+        "rouge_l",
+        "human_review_sample"
+      ]
+    },
+    {
+      "id": "text_rewriting",
+      "scoring": [
+        "task_specific_metric",
+        "human_review_sample"
+      ]
+    }
+  ],
+  "repair_example_fields": [
+    "task_family",
+    "task_description",
+    "original_prompt",
+    "input_output_examples",
+    "observed_errors",
+    "repaired_prompt",
+    "scoring_rule"
+  ],
+  "split_rules": [
+    "Keep examples from the same source task together.",
+    "Reserve whole tasks or task families for validation and final evaluation.",
+    "Never use the frozen college-notice test files for this new training data."
+  ],
+  "run_plan": {
+    "target_wall_hours": "8-10",
+    "method": "QLoRA adapter fine-tuning after data preparation",
+    "checkpointing": "Save resumable checkpoints to persistent storage.",
+    "final_evaluation": "Compare the base model and adapter on held-out tasks."
+  },
+  "current_totals": {
+    "examples": 25881,
+    "train": 17952,
+    "validation": 3879,
+    "held_out": 4050
+  },
+  "candidate_repair_cases": {
+    "train": 582,
+    "validation": 123,
+    "held_out": 0,
+    "status": "fresh_v3_candidates_pending_validation_screen"
+  },
+  "next_step": "Screen fresh v3 corruption candidates on its validation tasks using the pinned model; do not use held-out tasks for tuning."
+}

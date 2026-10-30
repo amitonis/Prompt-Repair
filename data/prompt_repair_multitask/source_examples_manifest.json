@@ -1,0 +1,80 @@
+{
+  "status": "source_examples_prepared_repair_trajectories_not_created",
+  "sources": [
+    {
+      "dataset": "fancyzhx/ag_news",
+      "family": "classification",
+      "examples": 2000,
+      "splits": {
+        "train": 1400,
+        "validation": 300,
+        "held_out": 300
+      },
+      "sha256": "b161b5ef26d9338625efc502b324bdb32daae1caff8472b55efededb04e4c576",
+      "source_test_examples_used": false
+    },
+    {
+      "dataset": "rajpurkar/squad_v2",
+      "family": "question_answering",
+      "examples": 1000,
+      "splits": {
+        "train": 700,
+        "validation": 150,
+        "held_out": 150
+      },
+      "sha256": "adac1496d81b8418863330e03bc422179aef4ddc513de982e900f3b868fd832e",
+      "split_group": "article_title",
+      "title_overlap": 0
+    },
+    {
+      "dataset": "project_synthetic_v1",
+      "families": [
+        "information_extraction",
+        "structured_output"
+      ],
+      "examples": 720,
+      "splits": {
+        "train": 400,
+        "validation": 160,
+        "held_out": 160
+      },
+      "sha256": "9f9afa7b85bd2ad3abe80a463c0ff770af82a850378fe3e6b91e6815dd4a5d5d",
+      "human_reviewed": false
+    },
+    {
+      "dataset": "allenai/natural-instructions",
+      "family": "mixed_instruction_tasks",
+      "examples": 22161,
+      "tasks": 278,
+      "splits": {
+        "train": 15452,
+        "validation": 3269,
+        "held_out": 3440
+      },
+      "sha256": "e5b86a6b1c3f9cf4789871086673c935bec5c9f5ed95e847ad10a05d39974def",
+      "official_source_test_examples_used": false,
+      "task_disjoint_splits": true,
+      "task_family_counts": {
+        "question_answering": 7823,
+        "information_extraction": 3589,
+        "classification": 3840,
+        "other_instruction_task": 5789,
+        "text_generation_rewriting": 1120
+      },
+      "licenses": ["CC BY 4.0", "MIT", "Apache 2.0"],
+      "license_counts": {
+        "CC BY 4.0": 7829,
+        "Apache 2.0": 3932,
+        "MIT": 10400
+      },
+      "status": "cleaned_and_structurally_audited"
+    }
+  ],
+  "totals": {
+    "examples": 25881,
+    "train": 17952,
+    "validation": 3879,
+    "held_out": 4050
+  },
+  "note": "These are task input/output examples only. They are not prompt-repair pairs and are not sufficient evidence to begin adapter training. Raw public samples remain in Molab and are not included in the bundle."
+}

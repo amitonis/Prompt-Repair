@@ -1,0 +1,33 @@
+{
+  "dataset": "rajpurkar/squad_v2",
+  "task_family": "question_answering",
+  "source_url": "https://huggingface.co/datasets/rajpurkar/squad_v2",
+  "license": "CC BY-SA 4.0",
+  "requested_source_split": "train",
+  "source_test_examples_used": false,
+  "sampled_examples": 1000,
+  "custom_split_counts": {
+    "train": {
+      "answerable": 350,
+      "unanswerable": 350
+    },
+    "validation": {
+      "answerable": 75,
+      "unanswerable": 75
+    },
+    "held_out": {
+      "answerable": 75,
+      "unanswerable": 75
+    }
+  },
+  "split_group": "article title",
+  "title_overlap_between_splits": {
+    "train_validation": 0,
+    "train_held_out": 0,
+    "validation_held_out": 0
+  },
+  "random_seed": 20261031,
+  "sha256": "adac1496d81b8418863330e03bc422179aef4ddc513de982e900f3b868fd832e",
+  "molab_path": "/marimo/promptrepair_broad_runtime/data/prompt_repair_multitask/source_examples/squad2_source_examples.jsonl",
+  "note": "Raw sample remains in Molab and is not included in the project ZIP."
+}

@@ -1,0 +1,37 @@
+{
+  "source": "allenai/natural-instructions",
+  "task_list": "official default training task list only",
+  "tasks": 278,
+  "examples": 22178,
+  "tasks_by_split": {
+    "train": 194,
+    "validation": 41,
+    "held_out": 43
+  },
+  "examples_by_split": {
+    "train": 15469,
+    "validation": 3269,
+    "held_out": 3440
+  },
+  "examples_by_family": {
+    "question_answering": 7840,
+    "information_extraction": 3589,
+    "classification": 3840,
+    "other_instruction_task": 5789,
+    "text_generation_rewriting": 1120
+  },
+  "license_counts": {
+    "CC BY 4.0": 7829,
+    "Apache 2.0": 3949,
+    "MIT": 10400
+  },
+  "examples_per_task_min": 29,
+  "examples_per_task_max": 80,
+  "task_disjoint_splits": true,
+  "official_source_test_used": false,
+  "missing_attribution_count": 0,
+  "sha256_in_molab": "d095f2d0d9401566eed128309e25bafb08c6a3c13d73d26c39c653717584e5e0",
+  "path_in_molab": "data/prompt_repair_multitask/superni_source_examples_v3.jsonl",
+  "status": "prepared_pending_structural_audit",
+  "note": "Task examples only, not repair pairs. The prior 60-task repair case split is superseded by this expanded task split."
+}
