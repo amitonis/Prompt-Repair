@@ -1,0 +1,22 @@
+{
+  "dataset": "exploratory_draft_03",
+  "status": "human_reviewed_exploratory",
+  "human_reviewer": "Project owner (Codex chat)",
+  "sign_off_date": "2026-10-30",
+  "human_decisions": {
+    "EXP3-001": "Accepted proposed event, date, venue, and evidence unchanged.",
+    "EXP3-002": "Accepted proposed event, date, venue, and evidence unchanged.",
+    "EXP3-003": "Accepted proposed event, date, venue, and evidence unchanged.",
+    "EXP3-004": "Accepted question mark as part of the event title; accepted date, venue, and evidence unchanged.",
+    "EXP3-005": "Accepted corrected event date 14 October 2027; all other proposed fields unchanged.",
+    "EXP3-006": "Accepted null date for unresolved conflict; all other proposed fields unchanged.",
+    "EXP3-007": "Accepted 19 October 2027 as event date, not registration deadline; all other proposed fields unchanged.",
+    "EXP3-008": "Accepted corrected event date 21 October 2027; all other proposed fields unchanged.",
+    "EXP3-009": "Accepted null venue for unresolved conflict; all other proposed fields unchanged.",
+    "EXP3-010": "Accepted corrected venue Greenhouse Annex; all other proposed fields unchanged.",
+    "EXP3-011": "Accepted null venue because it is pending; all other proposed fields unchanged.",
+    "EXP3-012": "Accepted full venue phrase; all other proposed fields unchanged."
+  },
+  "run_authorized": true,
+  "authorization_note": "The owner reviewed the displayed proposed labels and indicated completion in chat on 2026-10-30. The comparison is restricted to this separate exploratory set and the already-frozen baseline and v2 candidate prompts; report raw counts only."
+}

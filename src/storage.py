@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any
 
 DATA_DIR = Path(__file__).resolve().parents[1] / "data"
+RUNS_DIR = Path(__file__).resolve().parents[1] / "runs"
 SUBSETS = ("feedback", "selection", "test")
 INPUT_FIELDS = ("id", "family_id", "split", "category", "notice")
 
@@ -49,5 +50,35 @@ def check_family_isolation(records: list[dict[str, Any]]) -> list[str]:
 
 
 def save_run_artifacts(run_id: str, artifacts: dict[str, Any]) -> None:
-    """Persist runs/RUN_ID/ records; mirror to Drive or GitHub after each batch."""
-    raise NotImplementedError("Activated with the first real sweep (Day 8)")
+    """Persist a run's JSON-compatible artifacts under ``runs/<run_id>``.
+
+    Mapping values are written as JSON. Lists of mappings whose filename ends
+    in ``.jsonl`` are written one record per line, which keeps generation and
+    score logs append-friendly and easy to resume. This function deliberately
+    does not perform cloud synchronization; the caller should sync the run
+    directory after each major stage.
+    """
+    if not isinstance(run_id, str) or not run_id.strip():
+        raise ValueError("run_id must be a nonempty string")
+    if Path(run_id).name != run_id or run_id in {".", ".."}:
+        raise ValueError("run_id must be a single safe directory name")
+    if not isinstance(artifacts, dict):
+        raise TypeError("artifacts must be a dict")
+
+    destination = RUNS_DIR / run_id
+    destination.mkdir(parents=True, exist_ok=True)
+    for filename, value in artifacts.items():
+        if not isinstance(filename, str) or not filename.strip():
+            raise ValueError("artifact filenames must be nonempty strings")
+        relative = Path(filename)
+        if relative.is_absolute() or ".." in relative.parts:
+            raise ValueError(f"unsafe artifact path: {filename}")
+        target = destination / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        if target.suffix == ".jsonl":
+            if not isinstance(value, list) or not all(isinstance(row, dict) for row in value):
+                raise ValueError(f"JSONL artifact {filename} must be a list of objects")
+            payload = "".join(json.dumps(row, sort_keys=True) + "\n" for row in value)
+        else:
+            payload = json.dumps(value, indent=2, sort_keys=True) + "\n"
+        target.write_text(payload, encoding="utf-8")

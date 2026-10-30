@@ -1,0 +1,18 @@
+blind_id,event_title,boundary_ambiguous,reason
+A01,Odissi Recital,no,The notice names the recital and then states its corrected date and venue.
+A02,Golden Hour Walk,no,The society is the actor and Golden Hour Walk is the named activity.
+A03,Alumni Mixer,no,The correction directly names the event whose date and venue changed.
+A04,Spelling Bee Showdown,yes,The exclamation mark may be part of the displayed title or terminal sentence punctuation; I provisionally exclude it.
+A05,Laser Tag Arena,no,The session is named Laser Tag Arena and the venue is separately stated as Indoor Stadium.
+A06,Bharatanatyam Workshop,no,The workshop name precedes a comma-delimited venue-change description.
+A07,Zine-Making Day,no,The event is explicitly distinguished from its registration deadline.
+A08,Open Mic Night,no,The collective presents Open Mic Night; the location is a separate pending detail.
+A09,Fresher Art Jam,no,The forum is explicitly described as host and Fresher Art Jam is the named event.
+A10,Trail Talk,no,The club is holding Trail Talk and the venue is separately described as pending.
+A11,Sudoku Sprint,no,The event title is stated before the separate unresolved venue listings.
+A12,Kite Festival,no,The event title is stated before the conflicting date sources.
+A13,Trivia Royale,yes,The exclamation mark may be part of the displayed title or terminal sentence punctuation; I provisionally exclude it.
+A14,Paper Planes Workshop,yes,The exclamation mark may be part of the displayed title or terminal sentence punctuation; I provisionally exclude it.
+A15,Night Sky Watch,yes,The exclamation mark may be part of the displayed title or terminal sentence punctuation; I provisionally exclude it.
+A16,Poetry Slam Finals,no,The society announces Poetry Slam Finals; later date and venue conflicts do not affect the title boundary.
+A17,Telescope Basics,no,The club schedules Telescope Basics and then gives its date and location.

@@ -1,0 +1,9 @@
+{
+  "name": "demo_wrong_conflict_rule",
+  "sections": {
+    "instruction": "Extract the event title, date, and venue from the single college event notice.",
+    "context": "A notice may contain reminders, registration details, and information copied from more than one source.",
+    "constraints": "Use the notice only. If sources disagree about a date or venue, choose the value mentioned last. Keep the organizer attached to the event name when they appear together. Copy other values as written.",
+    "output_format": "Return one JSON object with event, date, and venue. Use null when a field is missing."
+  }
+}

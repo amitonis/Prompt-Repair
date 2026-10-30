@@ -1,14 +1,399 @@
 {
-  "status": "planned",
-  "note": "Notices are written and labelled on Day 3. Families must not cross splits. This manifest records the planned allocation from Section 6.1 of the methodology guide.",
+  "status": "frozen",
+  "note": "Second-pass label review completed on 26 October 2026 at the owner's request. Automated schema, exact-wording, null-policy, coverage, category-count, and family-isolation checks passed. Families never cross splits.",
   "planned_counts": {
-    "complete_unambiguous": {"feedback": 2, "selection": 2, "test": 8},
-    "venue_absent_or_pending": {"feedback": 2, "selection": 2, "test": 8},
-    "date_absent": {"feedback": 2, "selection": 1, "test": 6},
-    "deadline_distractor": {"feedback": 2, "selection": 1, "test": 6},
-    "explicit_correction": {"feedback": 2, "selection": 1, "test": 6},
-    "unresolved_conflict": {"feedback": 2, "selection": 1, "test": 6}
+    "complete_unambiguous": {
+      "feedback": 2,
+      "selection": 2,
+      "test": 8
+    },
+    "venue_absent_or_pending": {
+      "feedback": 2,
+      "selection": 2,
+      "test": 8
+    },
+    "date_absent": {
+      "feedback": 2,
+      "selection": 2,
+      "test": 6
+    },
+    "deadline_distractor": {
+      "feedback": 2,
+      "selection": 2,
+      "test": 6
+    },
+    "explicit_correction": {
+      "feedback": 1,
+      "selection": 1,
+      "test": 6
+    },
+    "unresolved_conflict": {
+      "feedback": 1,
+      "selection": 1,
+      "test": 6
+    }
   },
-  "dataset_sha256": null,
-  "records": []
+  "dataset_sha256": "40402f67b4a3cfbf1bd01702bedd1663ac4d1a0a8a28b4cca2784aa51e963843",
+  "records": [
+    {
+      "id": "FB-001",
+      "family_id": "cu_fb_invitation",
+      "split": "feedback",
+      "category": "complete_unambiguous"
+    },
+    {
+      "id": "FB-002",
+      "family_id": "cu_fb_invitation",
+      "split": "feedback",
+      "category": "complete_unambiguous"
+    },
+    {
+      "id": "FB-003",
+      "family_id": "vap_fb_announce",
+      "split": "feedback",
+      "category": "venue_absent_or_pending"
+    },
+    {
+      "id": "FB-004",
+      "family_id": "vap_fb_announce",
+      "split": "feedback",
+      "category": "venue_absent_or_pending"
+    },
+    {
+      "id": "FB-005",
+      "family_id": "da_fb_present",
+      "split": "feedback",
+      "category": "date_absent"
+    },
+    {
+      "id": "FB-006",
+      "family_id": "da_fb_present",
+      "split": "feedback",
+      "category": "date_absent"
+    },
+    {
+      "id": "FB-007",
+      "family_id": "dd_fb_register",
+      "split": "feedback",
+      "category": "deadline_distractor"
+    },
+    {
+      "id": "FB-008",
+      "family_id": "dd_fb_register",
+      "split": "feedback",
+      "category": "deadline_distractor"
+    },
+    {
+      "id": "FB-009",
+      "family_id": "ec_fb_reschedule",
+      "split": "feedback",
+      "category": "explicit_correction"
+    },
+    {
+      "id": "FB-010",
+      "family_id": "uc_fb_two_venues",
+      "split": "feedback",
+      "category": "unresolved_conflict"
+    },
+    {
+      "id": "SEL-001",
+      "family_id": "cu_sel_coming",
+      "split": "selection",
+      "category": "complete_unambiguous"
+    },
+    {
+      "id": "SEL-002",
+      "family_id": "cu_sel_coming",
+      "split": "selection",
+      "category": "complete_unambiguous"
+    },
+    {
+      "id": "SEL-003",
+      "family_id": "vap_sel_confirmed",
+      "split": "selection",
+      "category": "venue_absent_or_pending"
+    },
+    {
+      "id": "SEL-004",
+      "family_id": "vap_sel_confirmed",
+      "split": "selection",
+      "category": "venue_absent_or_pending"
+    },
+    {
+      "id": "SEL-005",
+      "family_id": "da_sel_announcing",
+      "split": "selection",
+      "category": "date_absent"
+    },
+    {
+      "id": "SEL-006",
+      "family_id": "da_sel_announcing",
+      "split": "selection",
+      "category": "date_absent"
+    },
+    {
+      "id": "SEL-007",
+      "family_id": "dd_sel_held",
+      "split": "selection",
+      "category": "deadline_distractor"
+    },
+    {
+      "id": "SEL-008",
+      "family_id": "dd_sel_held",
+      "split": "selection",
+      "category": "deadline_distractor"
+    },
+    {
+      "id": "SEL-009",
+      "family_id": "ec_sel_change",
+      "split": "selection",
+      "category": "explicit_correction"
+    },
+    {
+      "id": "SEL-010",
+      "family_id": "uc_sel_two_dates",
+      "split": "selection",
+      "category": "unresolved_conflict"
+    },
+    {
+      "id": "TEST-001",
+      "family_id": "cu_t_posted",
+      "split": "test",
+      "category": "complete_unambiguous"
+    },
+    {
+      "id": "TEST-002",
+      "family_id": "cu_t_posted",
+      "split": "test",
+      "category": "complete_unambiguous"
+    },
+    {
+      "id": "TEST-003",
+      "family_id": "cu_t_posted",
+      "split": "test",
+      "category": "complete_unambiguous"
+    },
+    {
+      "id": "TEST-004",
+      "family_id": "cu_t_posted",
+      "split": "test",
+      "category": "complete_unambiguous"
+    },
+    {
+      "id": "TEST-005",
+      "family_id": "cu_t_memo",
+      "split": "test",
+      "category": "complete_unambiguous"
+    },
+    {
+      "id": "TEST-006",
+      "family_id": "cu_t_memo",
+      "split": "test",
+      "category": "complete_unambiguous"
+    },
+    {
+      "id": "TEST-007",
+      "family_id": "cu_t_memo",
+      "split": "test",
+      "category": "complete_unambiguous"
+    },
+    {
+      "id": "TEST-008",
+      "family_id": "cu_t_memo",
+      "split": "test",
+      "category": "complete_unambiguous"
+    },
+    {
+      "id": "TEST-009",
+      "family_id": "vap_t_arranged",
+      "split": "test",
+      "category": "venue_absent_or_pending"
+    },
+    {
+      "id": "TEST-010",
+      "family_id": "vap_t_arranged",
+      "split": "test",
+      "category": "venue_absent_or_pending"
+    },
+    {
+      "id": "TEST-011",
+      "family_id": "vap_t_arranged",
+      "split": "test",
+      "category": "venue_absent_or_pending"
+    },
+    {
+      "id": "TEST-012",
+      "family_id": "vap_t_arranged",
+      "split": "test",
+      "category": "venue_absent_or_pending"
+    },
+    {
+      "id": "TEST-013",
+      "family_id": "vap_t_finalised",
+      "split": "test",
+      "category": "venue_absent_or_pending"
+    },
+    {
+      "id": "TEST-014",
+      "family_id": "vap_t_finalised",
+      "split": "test",
+      "category": "venue_absent_or_pending"
+    },
+    {
+      "id": "TEST-015",
+      "family_id": "vap_t_finalised",
+      "split": "test",
+      "category": "venue_absent_or_pending"
+    },
+    {
+      "id": "TEST-016",
+      "family_id": "vap_t_finalised",
+      "split": "test",
+      "category": "venue_absent_or_pending"
+    },
+    {
+      "id": "TEST-017",
+      "family_id": "da_t_decided",
+      "split": "test",
+      "category": "date_absent"
+    },
+    {
+      "id": "TEST-018",
+      "family_id": "da_t_decided",
+      "split": "test",
+      "category": "date_absent"
+    },
+    {
+      "id": "TEST-019",
+      "family_id": "da_t_decided",
+      "split": "test",
+      "category": "date_absent"
+    },
+    {
+      "id": "TEST-020",
+      "family_id": "da_t_slot",
+      "split": "test",
+      "category": "date_absent"
+    },
+    {
+      "id": "TEST-021",
+      "family_id": "da_t_slot",
+      "split": "test",
+      "category": "date_absent"
+    },
+    {
+      "id": "TEST-022",
+      "family_id": "da_t_slot",
+      "split": "test",
+      "category": "date_absent"
+    },
+    {
+      "id": "TEST-023",
+      "family_id": "dd_t_rsvp",
+      "split": "test",
+      "category": "deadline_distractor"
+    },
+    {
+      "id": "TEST-024",
+      "family_id": "dd_t_rsvp",
+      "split": "test",
+      "category": "deadline_distractor"
+    },
+    {
+      "id": "TEST-025",
+      "family_id": "dd_t_rsvp",
+      "split": "test",
+      "category": "deadline_distractor"
+    },
+    {
+      "id": "TEST-026",
+      "family_id": "dd_t_form",
+      "split": "test",
+      "category": "deadline_distractor"
+    },
+    {
+      "id": "TEST-027",
+      "family_id": "dd_t_form",
+      "split": "test",
+      "category": "deadline_distractor"
+    },
+    {
+      "id": "TEST-028",
+      "family_id": "dd_t_form",
+      "split": "test",
+      "category": "deadline_distractor"
+    },
+    {
+      "id": "TEST-029",
+      "family_id": "ec_t_date_shift",
+      "split": "test",
+      "category": "explicit_correction"
+    },
+    {
+      "id": "TEST-030",
+      "family_id": "ec_t_date_shift",
+      "split": "test",
+      "category": "explicit_correction"
+    },
+    {
+      "id": "TEST-031",
+      "family_id": "ec_t_venue_transfer",
+      "split": "test",
+      "category": "explicit_correction"
+    },
+    {
+      "id": "TEST-032",
+      "family_id": "ec_t_venue_transfer",
+      "split": "test",
+      "category": "explicit_correction"
+    },
+    {
+      "id": "TEST-033",
+      "family_id": "ec_t_double_update",
+      "split": "test",
+      "category": "explicit_correction"
+    },
+    {
+      "id": "TEST-034",
+      "family_id": "ec_t_double_update",
+      "split": "test",
+      "category": "explicit_correction"
+    },
+    {
+      "id": "TEST-035",
+      "family_id": "uc_t_venue_sources",
+      "split": "test",
+      "category": "unresolved_conflict"
+    },
+    {
+      "id": "TEST-036",
+      "family_id": "uc_t_venue_sources",
+      "split": "test",
+      "category": "unresolved_conflict"
+    },
+    {
+      "id": "TEST-037",
+      "family_id": "uc_t_date_sources",
+      "split": "test",
+      "category": "unresolved_conflict"
+    },
+    {
+      "id": "TEST-038",
+      "family_id": "uc_t_date_sources",
+      "split": "test",
+      "category": "unresolved_conflict"
+    },
+    {
+      "id": "TEST-039",
+      "family_id": "uc_t_both_conflicts",
+      "split": "test",
+      "category": "unresolved_conflict"
+    },
+    {
+      "id": "TEST-040",
+      "family_id": "uc_t_both_conflicts",
+      "split": "test",
+      "category": "unresolved_conflict"
+    }
+  ]
 }

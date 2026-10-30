@@ -1,0 +1,22 @@
+{
+  "dataset": "exploratory_draft_02",
+  "status": "human_reviewed_exploratory",
+  "human_reviewer": "Project owner (Codex chat)",
+  "sign_off_date": "2026-10-29",
+  "human_decisions": {
+    "EXP-EB-001": "Accepted; gold unchanged",
+    "EXP-EB-002": "Accepted; gold unchanged",
+    "EXP-EB-003": "Accepted; gold unchanged; organizer phrase excluded",
+    "EXP-EB-004": "Rename event and update matching gold/evidence; approved in chat 2026-10-29",
+    "EXP-EB-005": "Accepted as a punctuation convention; report separately",
+    "EXP-EB-006": "Accepted; internal colon retained",
+    "EXP-UC-001": "Accepted; date null",
+    "EXP-UC-002": "Accepted; date null",
+    "EXP-UC-003": "Accepted; remove 'current'; venue remains null",
+    "EXP-UC-004": "Accepted; date null",
+    "EXP-UC-005": "Accepted; date null",
+    "EXP-UC-006": "Accepted; date null"
+  },
+  "run_authorized": true,
+  "authorization_note": "Owner reviewed the advisory decisions and selected the EB-004 notice and matching label revision in chat on 2026-10-29. Exploratory results must be reported as raw counts only and separately from the primary study."
+}

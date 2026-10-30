@@ -1,0 +1,9 @@
+{
+  "name": "demo_missing_venue_key",
+  "sections": {
+    "instruction": "Extract the event name, date, and venue from the notice.",
+    "context": "The notice describes one college event.",
+    "constraints": "Use only stated information. Return null if a value is not provided.",
+    "output_format": "Return exactly one JSON object with the keys event and date. Include both keys. event is a nonempty string; date is a nonempty string or JSON null. Do not add prose or Markdown."
+  }
+}

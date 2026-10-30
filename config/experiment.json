@@ -1,48 +1,72 @@
 {
   "study": {
     "name": "PromptRepair pilot",
-    "version": "frozen-spec-v1",
+    "version": "frozen-spec-v2",
     "max_editing_attempts": 2,
     "max_new_text_words": 60,
     "max_prompt_words": 240,
     "screening_margin_points": 15,
+    "oracle_min_development_accuracy": 0.85,
+    "original_min_development_failures": 3,
     "fixability_threshold": 0.8,
     "localizer_tie_break_order": ["output_format", "constraints", "instruction", "context"],
+    "localizers": ["L-LLM", "L-Rule", "L-Behav"],
     "seed": 20261014
   },
   "environment": {
-    "gpu_name": "NVIDIA RTX PRO 6000 Blackwell",
-    "gpu_vram_gb": 95.6,
-    "driver_version": "580.178.04",
+    "gpu_name": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+    "gpu_vram_gb": 97.887,
+    "driver_version": "595.71.05",
     "cuda_version": "13.0",
-    "serving_library": null,
-    "serving_library_version": null,
-    "os": null
+    "serving_library": "transformers",
+    "serving_library_version": "5.20.2",
+    "torch_version": "2.11.0+cu130",
+    "os": "Linux (marimo molab)",
+    "batch_size": 16,
+    "measured_throughput_prompts_per_s": 6.1,
+    "throughput_note": "200 prompts, greedy generation, max_new_tokens=64"
   },
   "models": {
     "extractor": {
-      "hf_model_id": "TO_FILL_ON_DAY_1",
-      "revision": null,
-      "quantization": null
+      "hf_model_id": "Qwen/Qwen2.5-14B-Instruct",
+      "revision": "cf98f3b3bbb457ad9e2bb7baf9a0125b6b88caa8",
+      "dtype": "bfloat16",
+      "quantization": "none",
+      "max_new_tokens": 256
     },
     "editor": {
-      "hf_model_id": "TO_FILL_ON_DAY_1",
-      "revision": null,
-      "quantization": null,
+      "hf_model_id": "Qwen/Qwen2.5-14B-Instruct",
+      "revision": "cf98f3b3bbb457ad9e2bb7baf9a0125b6b88caa8",
+      "dtype": "bfloat16",
+      "quantization": "none",
+      "max_new_tokens": 1024,
       "same_as_extractor": true
     }
   },
   "generation": {
     "temperature": 0,
-    "max_new_tokens": null,
     "decoding": "greedy",
     "sampled_repeats_S": 1,
-    "note": "greedy for the primary comparison; fixed seeds for sampled arms"
+    "prompt_format": "tokenizer_chat_template_user_turn",
+    "note": "greedy for the primary comparison; fixed seed 20261014 for any sampled arm; token limits live under models.extractor/editor"
   },
   "splits": {
-    "feedback": 12,
-    "selection": 8,
+    "feedback": 10,
+    "selection": 10,
     "test_handwritten": 40,
-    "test_generated_target": 300
+    "generated_test_set": "dropped from core; listed as extension"
+  },
+  "feedback_packet": {
+    "max_failing": 5,
+    "max_passing": 2,
+    "selection_rule": "fixed file order"
+  },
+  "acceptance": {
+    "rule": "highest selection strict accuracy, strictly above current, no new invalidity",
+    "ties": "earlier attempt"
+  },
+  "retries": {
+    "max_attempts": 3,
+    "oom_action": "halve batch size"
   }
 }

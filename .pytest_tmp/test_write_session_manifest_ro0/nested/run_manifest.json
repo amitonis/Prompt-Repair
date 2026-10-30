@@ -1,0 +1,16 @@
+{
+  "batch_size": 16,
+  "cuda_version": "13.0",
+  "driver_version": "580.178.04",
+  "dtype": "bfloat16",
+  "git_commit": "abc1234",
+  "gpu_name": "NVIDIA RTX PRO 6000 Blackwell",
+  "model_id": "Qwen/Qwen2.5-14B-Instruct",
+  "model_revision": "deadbeef",
+  "quantization": "none",
+  "seed": 20261014,
+  "serving_library": "transformers",
+  "serving_library_version": "4.99.0",
+  "started_at_utc": "2026-10-25T10:00:00+00:00",
+  "torch_version": "2.9.0"
+}

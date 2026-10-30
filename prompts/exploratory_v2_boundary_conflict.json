@@ -1,0 +1,12 @@
+{
+  "name": "exploratory_v2_boundary_conflict",
+  "status": "post-hoc exploratory candidate; not part of the frozen primary prompt set",
+  "description": "Clarifies event-title boundaries and unresolved conflicting values for separate exploratory draft 02 only.",
+  "sections": {
+    "instruction": "Extract the event title, event date, and venue for the single target event in the notice.",
+    "context": "The notice may mention an organizer or host next to the event title. It may also list conflicting dates or venues from different sources.",
+    "constraints": "Use only information stated in the notice. Return the event title without a separate organizer or host name. Treat quotation marks that enclose a title as delimiters, not title text. Exclude terminal sentence punctuation immediately following the title before organizer or host wording; retain punctuation internal to the title. Copy supported dates and venues verbatim. If the notice gives conflicting values with no explicit correction or stated source priority, return null for that field; do not choose a value based only on source type. An explicit correction selects the corrected value. Do not guess.",
+    "output_format": "Return exactly one JSON object and no other text. Include exactly the keys event, date, and venue. event must be a nonempty string. date and venue must each be a nonempty string or JSON null. Do not add Markdown fences, explanations, or extra keys."
+  },
+  "runtime_input": "{{NOTICE}}"
+}

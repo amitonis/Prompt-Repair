@@ -1,0 +1,9 @@
+{
+  "name": "demo_vague_extraction",
+  "sections": {
+    "instruction": "Read the event notice and provide the important details.",
+    "context": "The input is a campus announcement.",
+    "constraints": "Use your best judgment and keep the answer concise.",
+    "output_format": "Return the answer as JSON."
+  }
+}

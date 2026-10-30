@@ -17,8 +17,10 @@ return exactly one JSON object describing it with these fields:
 ## Content rules
 
 1. Copy the relevant wording from the notice verbatim. Do not reformat dates
-   (preserve `20 October 2026`, not `2026-10-20`). Evaluation collapses repeated
-   whitespace only; arbitrary paraphrases or date formats are not equivalent.
+   (preserve `20 October 2026`, not `2026-10-20`). The venue is the full
+   location phrase as stated (for example, `Room 104 of the Science Block`),
+   not a truncated part of it. Evaluation collapses repeated whitespace only;
+   arbitrary paraphrases or date formats are not equivalent.
 2. An absent date or venue becomes `null`.
 3. A field with two unresolved conflicting values becomes `null`.
 4. An explicit correction ("rescheduled from X to Y") selects Y; it is not an

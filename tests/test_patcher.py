@@ -1,6 +1,6 @@
 import pytest
 
-from src.patcher import apply_patch
+from src.patcher import apply_patch, apply_rewrite, apply_section_rewrite
 
 BASE = {
     "instruction": "Extract details about the target college event from the supplied notice.",
@@ -100,3 +100,99 @@ def test_no_change_action_is_admissible():
     assert result["ok"]
     assert result["no_change"]
     assert result["sections"] == BASE
+
+
+REWRITE_SECTIONS = {
+    "instruction": "Extract the event name, date, and venue from the supplied notice.",
+    "context": "The notice describes one clearly named target college event.",
+    "constraints": "Use only explicitly stated information and return null for absent values.",
+    "output_format": "Return one JSON object with keys event, date, and venue.",
+}
+
+
+def _rewrite_proposal(**overrides):
+    proposal = {
+        "action": "rewrite",
+        "sections": dict(REWRITE_SECTIONS),
+        "explanation": "Clarified the null policy.",
+    }
+    proposal.update(overrides)
+    return proposal
+
+
+def test_rewrite_replaces_all_four_sections():
+    result = apply_rewrite(BASE, _rewrite_proposal())
+    assert result["ok"]
+    assert result["sections"] == REWRITE_SECTIONS
+    assert result["no_change"] is False
+
+
+def test_rewrite_no_change_is_admissible():
+    result = apply_rewrite(BASE, _rewrite_proposal(action="no_change", sections=None))
+    assert result["ok"]
+    assert result["no_change"]
+    assert result["sections"] == BASE
+
+
+@pytest.mark.parametrize("proposal,reason", [
+    ({"action": "rewrite", "sections": dict(REWRITE_SECTIONS)}, "MISSING_PROPOSAL_KEYS"),
+    (_rewrite_proposal(action="replace"), "UNKNOWN_ACTION"),
+    (_rewrite_proposal(sections="text"), "SECTIONS_NOT_OBJECT"),
+    (_rewrite_proposal(sections={k: v for k, v in REWRITE_SECTIONS.items() if k != "context"}), "MISSING_SECTIONS"),
+    (_rewrite_proposal(sections={**REWRITE_SECTIONS, "examples": "One."}), "UNKNOWN_SECTIONS"),
+    (_rewrite_proposal(sections={**REWRITE_SECTIONS, "context": "   "}), "EMPTY_SECTION"),
+    (_rewrite_proposal(sections=dict(BASE)), "NO_OP_EDIT"),
+    (_rewrite_proposal(sections={**REWRITE_SECTIONS, "constraints": 'Add the key "organizer".'}), "NEW_FIELD_INTRODUCED"),
+    (_rewrite_proposal(sections={**REWRITE_SECTIONS, "instruction": " ".join(["word"] * 241)}), "PROMPT_TOO_LONG"),
+    ("not a dict", "PROPOSAL_NOT_OBJECT"),
+])
+def test_invalid_rewrites_are_rejected(proposal, reason):
+    result = apply_rewrite(BASE, proposal)
+    assert not result["ok"]
+    assert result["reason"] == reason
+
+
+def _section_proposal(section="constraints", new_text="Use only stated information.", action="replace"):
+    return {
+        "action": action,
+        "section": section if action == "replace" else None,
+        "new_text": new_text if action == "replace" else None,
+        "error_codes": [],
+        "explanation": "evidence",
+    }
+
+
+def test_section_rewrite_replaces_only_the_named_section():
+    result = apply_section_rewrite(BASE, _section_proposal(), "constraints")
+    assert result["ok"]
+    assert result["sections"]["constraints"] == "Use only stated information."
+    for name in ("instruction", "context", "output_format"):
+        assert result["sections"][name] == BASE[name]
+
+
+def test_section_rewrite_no_change_is_admissible():
+    result = apply_section_rewrite(BASE, _section_proposal(action="no_change"), "constraints")
+    assert result["ok"]
+    assert result["no_change"]
+    assert result["sections"] == BASE
+
+
+@pytest.mark.parametrize("proposal,reason", [
+    (_section_proposal(section="context"), "SECTION_MISMATCH"),
+    (_section_proposal(new_text="   "), "NEW_TEXT_EMPTY"),
+    (_section_proposal(new_text=BASE["constraints"]), "NO_OP_EDIT"),
+    (_section_proposal(new_text=" ".join(["word"] * 61)), "NEW_TEXT_TOO_LONG"),
+    (_section_proposal(new_text='Add the key "organizer".'), "NEW_FIELD_INTRODUCED"),
+    ({"action": "replace", "section": "constraints", "new_text": "x"}, "MISSING_PROPOSAL_KEYS"),
+    (_section_proposal(action="rewrite"), "UNKNOWN_ACTION"),
+    ("not a dict", "PROPOSAL_NOT_OBJECT"),
+])
+def test_invalid_section_rewrites_are_rejected(proposal, reason):
+    result = apply_section_rewrite(BASE, proposal, "constraints")
+    assert not result["ok"]
+    assert result["reason"] == reason
+
+
+def test_section_rewrite_requires_a_known_target():
+    with pytest.raises(ValueError):
+        apply_section_rewrite(BASE, _section_proposal(), "examples")

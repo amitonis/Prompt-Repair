@@ -24,16 +24,18 @@ def _(mo):
         """
         # Day 1 — molab environment setup
 
-        Purpose: record GPU details, download one open-weight instruct model,
-        measure throughput, and verify persistence.
+        Purpose: record GPU details, download the pre-registered model,
+        measure throughput, and verify Drive persistence.
 
         **Rules**
 
         - Never paste HF or GitHub tokens into this notebook: molab notebooks
           are public but undiscoverable.
         - Sessions stop after ~12 hours; keep today short.
-        - After the session, copy recorded values into `config/experiment.json`
-          on your own machine and push to GitHub (molab has no push token).
+        - `MODEL_ID` below must match `config/experiment.json`. The record cell
+          writes `runs/day1/environment.json`; copy those values into
+          `config/experiment.json` and the `TO_FILL` markers in
+          `analysis_plan.md` Section 1, then re-run `bash scripts/hash_frozen.sh`.
         """
     )
     return
@@ -54,14 +56,9 @@ def _():
 def _(mo):
     mo.md(
         """
-        **Record:** GPU name, VRAM, driver version, CUDA version → copy into
-        `config/experiment.json` locally, then commit.
-
-        **Model choice:** pick an **ungated** instruct model. Rough VRAM math:
-        bf16 ≈ 2 bytes per parameter (7B ≈ 16 GB, 14B ≈ 28 GB). Examples:
-        `Qwen/Qwen2.5-7B-Instruct`, `Qwen/Qwen2.5-14B-Instruct`,
-        `mistralai/Mistral-7B-Instruct-v0.3`,
-        `microsoft/Phi-3.5-mini-instruct`. Edit MODEL_ID below if needed.
+        **VRAM math:** bf16 is ~2 bytes per parameter (7B ≈ 16 GB, 14B ≈ 28 GB).
+        Revision 2 pre-registers `Qwen/Qwen2.5-14B-Instruct`; do not switch to
+        a different size without logging a deviation.
         """
     )
     return
@@ -69,7 +66,7 @@ def _(mo):
 
 @app.cell
 def _():
-    MODEL_ID = "Qwen/Qwen2.5-7B-Instruct"
+    MODEL_ID = "Qwen/Qwen2.5-14B-Instruct"
 
     import torch
     from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -83,7 +80,7 @@ def _():
     )
     print(torch.cuda.get_device_name(0))
     print(f"Loaded {MODEL_ID}")
-    return MODEL_ID, model, tok
+    return MODEL_ID, model, tok, torch
 
 
 @app.cell
@@ -93,10 +90,10 @@ def _(mo):
         ## Throughput benchmark
 
         ~200 short prompts, batched greedy generation. If it OOMs, halve
-        `BATCH_SIZE`. Record **prompts/s** — sweep time ≈ total generations
-        ÷ prompts per second. Target: full sweep ≤ 6 hours; if larger, shrink
-        per Section 15.2 of the methodology guide (fewer repeats → fewer
-        defects → one model).
+        `BATCH_SIZE`. Record **prompts/s**; sweep time ≈ total generations ÷
+        prompts per second. Target: full sweep ≤ 6 hours; if larger, shrink
+        per the methodology guide (fewer repeats → fewer defects → one model).
+        The batch size that survives here becomes `B` in the manifest.
         """
     )
     return
@@ -106,7 +103,7 @@ def _(mo):
 def _(model, tok):
     import time
 
-    BATCH_SIZE = 32
+    BATCH_SIZE = 16
     MAX_NEW_TOKENS = 64
     N_PROMPTS = 200
 
@@ -149,6 +146,48 @@ def _(model, tok):
     print(f"{len(prompts)} prompts in {elapsed:.1f}s")
     print(f"~{total_new_tokens / elapsed:.0f} generated tokens/s (approximate)")
     print(f"{len(prompts) / elapsed:.1f} prompts/s")
+    return (BATCH_SIZE,)
+
+
+@app.cell
+def _(BATCH_SIZE, MODEL_ID, torch):
+    import json
+    import platform
+    import subprocess
+    from pathlib import Path
+
+    import transformers
+    from huggingface_hub import HfApi
+
+    revision = HfApi().model_info(MODEL_ID).sha
+
+    driver = subprocess.run(
+        ["nvidia-smi", "--query-gpu=driver_version", "--format=csv,noheader"],
+        capture_output=True,
+        text=True,
+    ).stdout.strip() or "unknown"
+
+    record = {
+        "model_id": MODEL_ID,
+        "revision": revision,
+        "serving_library": "transformers",
+        "serving_library_version": transformers.__version__,
+        "torch_version": torch.__version__,
+        "dtype": "bfloat16",
+        "quantization": "none",
+        "os": platform.platform(),
+        "gpu_name": torch.cuda.get_device_name(0),
+        "cuda_version": torch.version.cuda,
+        "driver_version": driver,
+        "batch_size": BATCH_SIZE,
+    }
+
+    print(json.dumps(record, indent=2))
+
+    destination = Path("runs/day1/environment.json")
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    destination.write_text(json.dumps(record, indent=2) + "\n", encoding="utf-8")
+    print(f"\nWrote {destination.resolve()}")
     return
 
 
@@ -156,16 +195,48 @@ def _(model, tok):
 def _(mo):
     mo.md(
         """
-        ## Persistence checks
+        ## Fill the pre-registration
 
-        1. **Google Drive:** the cell below writes a smoke file into the
-           notebook workspace. Check molab's Drive/files integration (per the
-           current molab docs) and confirm the file reaches your Drive. If it
-           does, plan to write `runs/RUN_ID/` there after every batch.
-        2. **GitHub:** keep the repo public and mirror it into molab. The
-           clone cell below needs no token for public repos. Do not push from
-           molab (that would need a token in a public notebook); push code from
-           your own machine instead.
+        Copy the JSON above into `config/experiment.json`:
+
+        - `models.<role>.revision` ← `revision` (40-character commit hash)
+        - `environment.serving_library_version` ← `serving_library_version`
+        - `environment.torch_version` ← `torch_version`
+        - `environment.os` ← `os` (replaces the provisional placeholder)
+        - `environment.gpu_name`, `cuda_version`, `driver_version` (confirm or
+          correct the provisional values already in the config)
+        - `environment.batch_size` ← `batch_size`
+
+        Then fill the matching `TO_FILL` markers in `analysis_plan.md`
+        Section 1, mirror the same lines into `project_plan.md`, and re-run
+        `bash scripts/hash_frozen.sh` on your machine (update Section 10 in
+        both files). Revision 2 requires both files to agree.
+        """
+    )
+    return
+
+
+@app.cell
+def _(mo):
+    mo.md(
+        """
+        ## Persistence: Google Drive via rclone
+
+        molab has no durable local disk between sessions, so `runs/` must be
+        copied out. Revision 2 uses `scripts/sync_runs.sh` (rclone `copy`,
+        checksum, never deletes the append-only cache):
+
+        1. On your laptop run `rclone authorize "drive"` and keep the token
+           out of the notebook and out of the repo.
+        2. In the molab terminal (not a notebook cell), run `rclone config`,
+           choose `n` for a new remote named `gdrive`, `drive` as the storage
+           type, and paste the token.
+        3. Test from this notebook with `DRY_RUN=1` first, then without it.
+        4. At session start restore with
+           `rclone copy gdrive:promptrepair . --checksum`.
+
+        Native Drive integration in molab is unconfirmed; the plan does not
+        rely on it.
         """
     )
     return
@@ -173,26 +244,27 @@ def _(mo):
 
 @app.cell
 def _():
+    import os
+    import subprocess
     from pathlib import Path
 
-    smoke_dir = Path("runs") / "SMOKE"
-    smoke_dir.mkdir(parents=True, exist_ok=True)
-    smoke_file = smoke_dir / "day1_hello.txt"
-    smoke_file.write_text("Day 1 persistence smoke test\n", encoding="utf-8")
-    print(f"Wrote {smoke_file.resolve()}")
-    return
+    check = subprocess.run(["rclone", "version"], capture_output=True, text=True)
+    script = Path("scripts/sync_runs.sh")
+    print(check.stdout.splitlines()[0] if check.returncode == 0 else check.stderr.strip())
 
-
-@app.cell
-def _():
-    import subprocess
-
-    GITHUB_URL = "https://github.com/YOUR_USERNAME/YOUR_REPO.git"
-    result = subprocess.run(
-        ["git", "clone", GITHUB_URL], capture_output=True, text=True
-    )
-    print(result.stdout)
-    print(result.stderr)
+    if not script.exists():
+        print(f"`{script}` not found in {Path.cwd()}.")
+        print("Upload the repository (or at least scripts/) to molab, then re-run.")
+        print("Inline equivalent once the `gdrive` remote exists:")
+        print("  rclone copy runs gdrive:promptrepair/runs --checksum --progress")
+    else:
+        env = {**os.environ, "DRY_RUN": "1"}
+        sync = subprocess.run(
+            ["bash", str(script)], capture_output=True, text=True, env=env
+        )
+        print(sync.stdout)
+        print(sync.stderr)
+        print(f"exit={sync.returncode}")
     return
 
 
@@ -202,13 +274,15 @@ def _(mo):
         """
         ## Day-1 exit checklist
 
-        - [ ] GPU name / VRAM / driver / CUDA recorded → `config/experiment.json`
+        - [ ] `runs/day1/environment.json` written (revision, versions, GPU,
+              CUDA, driver, batch size)
+        - [ ] Values copied into `config/experiment.json` and both plan files;
+              `bash scripts/hash_frozen.sh` re-run and Section 10 updated
         - [ ] One model downloads and generates
         - [ ] Measured tokens/s and prompts/s written down
-        - [ ] A file survived via Drive, or fallback confirmed
+        - [ ] Drive round-trip confirmed with `DRY_RUN=1` then a real copy
 
-        **Reminder:** this notebook needs a GPU — run it on molab, not
-        locally (unless your own machine has a GPU).
+        **Reminder:** this notebook needs a GPU; run it on molab, not locally.
         """
     )
     return

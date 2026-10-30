@@ -32,6 +32,52 @@ def recovery_regression(
     }
 
 
-def build_report(*args: Any, **kwargs: Any) -> Any:
-    """Populate the blank results table (Section 11.7) from saved run records."""
-    raise NotImplementedError("Runs after final-test sweeps (Day 11-12)")
+def build_report(
+    repair_payload: dict[str, Any],
+    final_payload: dict[str, Any],
+    *,
+    oracle_accuracy: float | None = None,
+    defect_accuracy: float | None = None,
+) -> dict[str, Any]:
+    """Build a JSON-compatible report from a repair sweep and final test.
+
+    The function reports every locked arm, including unchanged or rejected
+    repairs. Statistical comparisons remain separate because the project has
+    one retained setting (D6), so cross-setting tests are not meaningful yet.
+    """
+    if not isinstance(repair_payload, dict) or not isinstance(final_payload, dict):
+        raise TypeError("repair_payload and final_payload must be dictionaries")
+    final_results = final_payload.get("results", {})
+    table: list[dict[str, Any]] = []
+    for arm, result in final_results.items():
+        metrics = result.get("metrics", {})
+        attempted = int(metrics.get("attempted", 0))
+        correct = int(metrics.get("selection_records_correct", 0))
+        accuracy = correct / attempted if attempted else None
+        row: dict[str, Any] = {
+            "arm": arm,
+            "test_attempted": attempted,
+            "test_strict_accuracy": accuracy,
+            "test_correct": correct,
+            "test_invalid": metrics.get("selection_invalid"),
+            "locked_sections": result.get("sections"),
+        }
+        if oracle_accuracy is not None and defect_accuracy is not None and accuracy is not None:
+            row["restoration_ratio"] = restoration_ratio(defect_accuracy, accuracy, oracle_accuracy)
+        table.append(row)
+    return {
+        "study_scope": {
+            "setting": repair_payload.get("setting_id", "D6"),
+            "retained_defect": repair_payload.get("defect_id", "D6"),
+            "across_setting_inference": "descriptive_only_single_retained_setting",
+        },
+        "repair": {
+            "selection": repair_payload.get("selection", {}).get("metrics"),
+            "feedback_packet": repair_payload.get("feedback_packet"),
+            "localizer_rankings": repair_payload.get("localizer_rankings"),
+        },
+        "final_test": {
+            "elapsed_s": final_payload.get("elapsed_s"),
+            "arms": table,
+        },
+    }
